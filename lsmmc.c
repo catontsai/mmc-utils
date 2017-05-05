@@ -589,9 +589,25 @@ void print_mmc_cid(struct config *config, char *cid)
 		else
 			printf("manufacturer: 'Unlisted' '%c'\n", oid);
 
-		printf("product: '%s' %d.%d\n", pnm, prv_major, prv_minor);
-		printf("serial: 0x%08x\n", psn);
-		printf("manfacturing date: %d %s\n", 1997 + mdt_year,
+		printf("package type: ");
+		switch (cbx) {
+		case 0:
+			printf("card\n");
+			break;
+		case 1:
+			printf("BGA\n");
+			break;
+		case 2:
+			printf("PoP\n");
+			break;
+		case 3:
+			printf("reserved\n");
+			break;
+		}
+		printf("product name: %s\n", pnm);
+		printf("product revision: %d.%d\n", prv_major, prv_minor);
+		printf("product serial: 0x%08x\n", psn);
+		printf("manufacturing date: %d %s\n", 1997 + mdt_year,
 		       months[mdt_month]);
 	}
 }
